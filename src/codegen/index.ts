@@ -5184,6 +5184,13 @@ export type GatsbyPrismicImageFluid_WithWebp_NoBase64Fragment = (
   & GatsbyImgixFluid_NoBase64Fragment
 );
 
+export type BlogPostQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type BlogPostQuery = { prismicBlogPost?: Maybe<{ __typename?: 'PrismicBlogPost', prismicId: string, uid: string, url?: Maybe<string>, type: string, id: string, lastUpdated: any, data?: Maybe<{ __typename?: 'PrismicBlogPostDataType', date?: Maybe<any>, title?: Maybe<{ __typename?: 'PrismicStructuredTextType', html?: Maybe<string>, text?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'PrismicBlogPostDataFeaturedImageImageType', gatsbyImageData?: Maybe<any> }>, content?: Maybe<{ __typename?: 'PrismicStructuredTextType', html?: Maybe<string> }>, category?: Maybe<{ __typename?: 'PrismicLinkType', document?: Maybe<{ __typename?: 'PrismicBlogCategory', id: string, prismicId: string, uid: string, data?: Maybe<{ __typename?: 'PrismicBlogCategoryDataType', name?: Maybe<string> }> } | { __typename?: 'PrismicBlogPost' }> }> }> }> };
+
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;

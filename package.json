@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "develop": "gatsby develop",
+    "dev": "graphql-codegen && gatsby develop",
     "start": "gatsby develop",
     "build": "graphql-codegen && gatsby build",
     "serve": "gatsby serve",

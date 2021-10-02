@@ -12,7 +12,7 @@ exports.linkResolver = (doc) => {
     }
 
     if (doc.type === "blog_page") {
-        return `/post/${doc.uid}`
+        return `/blog/${doc.uid}`
     }
   
     // Backup for all other types
