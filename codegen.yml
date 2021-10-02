@@ -1,0 +1,19 @@
+schema: "./.cache/schema.graphql"
+documents:
+  - "./src/**/*.tsx"
+  - "./.cache/fragments.graphql"
+generates:
+  ./src/codegen/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-resolvers
+    config:
+      avoidOptionals: false
+      noSchemaStitching: false
+      useImplementingTypes: false
+      useTypeImports: true
+      skipTypeNameForRoot: true
+      skipTypename: false
+      preResolveTypes: true
+      exportFragmentSpreadSubTypes: true
