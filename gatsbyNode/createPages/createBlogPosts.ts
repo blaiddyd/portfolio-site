@@ -1,6 +1,9 @@
 import { Actions, Reporter } from "gatsby";
+import { paginate } from "gatsby-awesome-pagination";
+
 import path from "path";
 
+import { PrismicBlogCategory } from "../../src/codegen";
 import { BlogPostsQueryResult } from "../types";
 
 const { BLOG_POST_PER_PAGE = "10" } = process.env;
@@ -15,17 +18,6 @@ export const createBlogPosts = async (graphql, actions: Actions, reporter: Repor
         edges {
           node {
             data {
-              blog_title {
-                html
-                text
-              }
-              featured_image {
-                gatsbyImageData(placeholder: BLURRED, height: 450, width: 450)
-              }
-              post_content {
-                html
-              }
-              date(locale: "en-AU")
               blog_category {
                 document {
                   ... on PrismicBlogCategory {
@@ -40,7 +32,6 @@ export const createBlogPosts = async (graphql, actions: Actions, reporter: Repor
               }
             }
             prismicId
-            last_publication_date(locale: "en-AU")
             uid
             id
           }
@@ -55,7 +46,7 @@ export const createBlogPosts = async (graphql, actions: Actions, reporter: Repor
 
       allPosts.forEach((post) => {
         createPage({
-            path: `/blog/${post.data.blog_category.document.uid}/${post.uid}/`,
+            path: `/blog/${(post.data.blog_category.document as PrismicBlogCategory).uid}/${post.uid}/`,
             component: blogPostTemplate,
             context: {
               id: post.id,
@@ -66,6 +57,16 @@ export const createBlogPosts = async (graphql, actions: Actions, reporter: Repor
 
         reporter.info(`Created blog post ${post.uid}`);
       });
+
+      const blogFeedTemplate = path.resolve("./src/templates/Blog/BlogFeed/index.tsx");
+      paginate({
+        createPage,
+        items: allPosts,
+        itemsPerPage: parseInt(BLOG_POST_PER_PAGE),
+        pathPrefix: `/blog`,
+        component: blogFeedTemplate
+      });
+
     } else {
       reporter.info(`No blog posts to create. Skipping.`);
     }

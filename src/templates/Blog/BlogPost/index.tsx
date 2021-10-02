@@ -5,17 +5,14 @@ import { GatsbyImage } from "gatsby-plugin-image";
 
 import { css, jsx } from '@emotion/react'
 
-
 import { BlogPostQuery } from "codegen";
 
-
-
 interface BlogPostPageContext {
-    pageContext: {
-        id: string;
-        prismicId: string;
-        slug: string;
-    }
+  pageContext: {
+    id: string;
+    prismicId: string;
+    slug: string;
+  }
 };
 
 const BlogPost = (props: PageProps<BlogPostQuery, BlogPostPageContext>): JSX.Element => {
@@ -36,7 +33,7 @@ const BlogPost = (props: PageProps<BlogPostQuery, BlogPostPageContext>): JSX.Ele
 export const query = graphql`
   query BlogPost($id: String!) {
     prismicBlogPost (id: { eq: $id }) {
-        data {
+      data {
         title: blog_title {
           text
         }

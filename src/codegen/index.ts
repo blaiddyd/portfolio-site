@@ -4854,8 +4854,8 @@ export type SitePluginPluginOptionsImagePlaceholderImgixParamsFilterInput = {
 
 export type SitePluginPluginOptionsSchemas = {
   __typename?: 'SitePluginPluginOptionsSchemas';
-  blog_category?: Maybe<SitePluginPluginOptionsSchemasBlog_Category>;
   blog_post?: Maybe<SitePluginPluginOptionsSchemasBlog_Post>;
+  blog_category?: Maybe<SitePluginPluginOptionsSchemasBlog_Category>;
 };
 
 export type SitePluginPluginOptionsSchemasBlog_Category = {
@@ -5075,8 +5075,8 @@ export type SitePluginPluginOptionsSchemasBlog_PostMainUidFilterInput = {
 };
 
 export type SitePluginPluginOptionsSchemasFilterInput = {
-  blog_category?: Maybe<SitePluginPluginOptionsSchemasBlog_CategoryFilterInput>;
   blog_post?: Maybe<SitePluginPluginOptionsSchemasBlog_PostFilterInput>;
+  blog_category?: Maybe<SitePluginPluginOptionsSchemasBlog_CategoryFilterInput>;
 };
 
 export type SitePluginSortInput = {
@@ -5202,6 +5202,14 @@ export type GatsbyPrismicImageFluid_WithWebp_NoBase64Fragment = (
   { __typename?: 'ImgixFluid' }
   & GatsbyImgixFluid_NoBase64Fragment
 );
+
+export type BlogFeedQueryVariables = Exact<{
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+}>;
+
+
+export type BlogFeedQuery = { allPrismicBlogPost: { __typename?: 'PrismicBlogPostConnection', edges: Array<{ __typename?: 'PrismicBlogPostEdge', node: { __typename?: 'PrismicBlogPost', prismicId: string, uid: string, url?: Maybe<string>, type: string, id: string, lastUpdated: any, data?: Maybe<{ __typename?: 'PrismicBlogPostDataType', date?: Maybe<any>, title?: Maybe<{ __typename?: 'PrismicStructuredTextType', text?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'PrismicBlogPostDataFeaturedImageImageType', gatsbyImageData?: Maybe<any> }>, content?: Maybe<{ __typename?: 'PrismicStructuredTextType', html?: Maybe<string> }>, category?: Maybe<{ __typename?: 'PrismicLinkType', document?: Maybe<{ __typename?: 'PrismicBlogCategory', id: string, prismicId: string, uid: string, data?: Maybe<{ __typename?: 'PrismicBlogCategoryDataType', name?: Maybe<string> }> } | { __typename?: 'PrismicBlogPost' }> }> }> } }> } };
 
 export type BlogPostQueryVariables = Exact<{
   id: Scalars['String'];
@@ -6737,8 +6745,8 @@ export type SitePluginPluginOptionsImagePlaceholderImgixParamsResolvers<ContextT
 };
 
 export type SitePluginPluginOptionsSchemasResolvers<ContextType = any, ParentType extends ResolversParentTypes['SitePluginPluginOptionsSchemas'] = ResolversParentTypes['SitePluginPluginOptionsSchemas']> = {
-  blog_category?: Resolver<Maybe<ResolversTypes['SitePluginPluginOptionsSchemasBlog_category']>, ParentType, ContextType>;
   blog_post?: Resolver<Maybe<ResolversTypes['SitePluginPluginOptionsSchemasBlog_post']>, ParentType, ContextType>;
+  blog_category?: Resolver<Maybe<ResolversTypes['SitePluginPluginOptionsSchemasBlog_category']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
