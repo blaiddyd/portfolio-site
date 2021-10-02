@@ -1,8 +1,13 @@
+/** @jsx jsx */
 import React from "react";
 import { graphql, PageProps } from "gatsby";
+import { GatsbyImage } from "gatsby-plugin-image";
+
+import { css, jsx } from '@emotion/react'
+
 
 import { BlogPostQuery } from "codegen";
-import { GatsbyImage } from "gatsby-plugin-image";
+
 
 
 interface BlogPostPageContext {

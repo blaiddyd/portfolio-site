@@ -1,7 +1,7 @@
 import { Actions, Reporter } from "gatsby";
 import path from "path";
 
-import { BlogPostsQueryResult } from "./types";
+import { BlogPostsQueryResult } from "../types";
 
 const { BLOG_POST_PER_PAGE = "10" } = process.env;
 
@@ -55,7 +55,7 @@ export const createBlogPosts = async (graphql, actions: Actions, reporter: Repor
 
       allPosts.forEach((post) => {
         createPage({
-            path: `/blog/${post.data.blog_category.document.uid}/${post.uid}`,
+            path: `/blog/${post.data.blog_category.document.uid}/${post.uid}/`,
             component: blogPostTemplate,
             context: {
               id: post.id,
