@@ -1,10 +1,8 @@
-/** @jsx jsx */
 import React from "react";
 import { graphql, PageProps } from "gatsby";
-import { jsx, css } from "@emotion/react";
-import styled from "@emotion/styled";
 
 import { BlogPostQuery } from "codegen";
+import { GatsbyImage } from "gatsby-plugin-image";
 
 
 interface BlogPostPageContext {
@@ -15,47 +13,55 @@ interface BlogPostPageContext {
     }
 };
 
-export const BlogPost = (props: PageProps<BlogPostQuery, BlogPostPageContext>) => {
-    const { prismicBlogPost } = props.data;
+const BlogPost = (props: PageProps<BlogPostQuery, BlogPostPageContext>): JSX.Element => {
+  const { prismicBlogPost } = props.data;
 
-    const { title, featuredImage, content, date, category } = prismicBlogPost.data;
+  const { title, featuredImage, content, date, category } = prismicBlogPost.data;
 
-    r
+  return (
+    <div className="blog-post">
+      <h1 dangerouslySetInnerHTML={{ __html: title.text }} />
+      <GatsbyImage image={featuredImage.gatsbyImageData} alt="featured image" />
+      <article dangerouslySetInnerHTML={{ __html: content.html }} /> 
+    </div>
+  );
 };
 
+
 export const query = graphql`
-    query BlogPost($id: String!) {
-        prismicBlogPost (id: { eq: $id }) {
-            data {
-            title: blog_title {
-              html
-              text
-            }
-            featuredImage: featured_image {
-              gatsbyImageData(placeholder: BLURRED, height: 450, width: 450)
-            }
-            content: post_content {
-              html
-            }
-            date(locale: "en-AU")
-            category: blog_category {
-              document {
-                ... on PrismicBlogCategory {
-                  id
-                  prismicId
-                  data {
-                    name: category_name
-                  }
-                  uid
-                }
+  query BlogPost($id: String!) {
+    prismicBlogPost (id: { eq: $id }) {
+        data {
+        title: blog_title {
+          text
+        }
+        featuredImage: featured_image {
+          gatsbyImageData(placeholder: BLURRED, height: 450, width: 450)
+        }
+        content: post_content {
+          html
+        }
+        date(locale: "en-AU")
+        category: blog_category {
+          document {
+            ... on PrismicBlogCategory {
+              id
+              prismicId
+              data {
+                name: category_name
               }
+              uid
             }
           }
-          prismicId
-          lastUpdated: last_publication_date(locale: "en-AU")
-          uid
-          url
-          type
-          id
         }
-    }`;
+      }
+      prismicId
+      lastUpdated: last_publication_date(locale: "en-AU")
+      uid
+      url
+      type
+      id
+    }
+  }`;
+
+export default BlogPost;

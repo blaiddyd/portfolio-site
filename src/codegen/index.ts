@@ -3269,6 +3269,7 @@ export type QuerySitePageArgs = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
@@ -4097,6 +4098,7 @@ export type SitePage = Node & {
   children: Array<Node>;
   internal: Internal;
   isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  context?: Maybe<SitePageContext>;
   pluginCreator?: Maybe<SitePlugin>;
   pluginCreatorId?: Maybe<Scalars['String']>;
 };
@@ -4139,6 +4141,19 @@ export type SitePageConnectionGroupArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   field: SitePageFieldsEnum;
+};
+
+export type SitePageContext = {
+  __typename?: 'SitePageContext';
+  id?: Maybe<Scalars['String']>;
+  prismicId?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  prismicId?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -4241,6 +4256,9 @@ export enum SitePageFieldsEnum {
   InternalOwner = 'internal___owner',
   InternalType = 'internal___type',
   IsCreatedByStatefulCreatePages = 'isCreatedByStatefulCreatePages',
+  ContextId = 'context___id',
+  ContextPrismicId = 'context___prismicId',
+  ContextSlug = 'context___slug',
   PluginCreatorResolve = 'pluginCreator___resolve',
   PluginCreatorName = 'pluginCreator___name',
   PluginCreatorVersion = 'pluginCreator___version',
@@ -4347,6 +4365,7 @@ export type SitePageFilterInput = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
 };
@@ -5189,7 +5208,7 @@ export type BlogPostQueryVariables = Exact<{
 }>;
 
 
-export type BlogPostQuery = { prismicBlogPost?: Maybe<{ __typename?: 'PrismicBlogPost', prismicId: string, uid: string, url?: Maybe<string>, type: string, id: string, lastUpdated: any, data?: Maybe<{ __typename?: 'PrismicBlogPostDataType', date?: Maybe<any>, title?: Maybe<{ __typename?: 'PrismicStructuredTextType', html?: Maybe<string>, text?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'PrismicBlogPostDataFeaturedImageImageType', gatsbyImageData?: Maybe<any> }>, content?: Maybe<{ __typename?: 'PrismicStructuredTextType', html?: Maybe<string> }>, category?: Maybe<{ __typename?: 'PrismicLinkType', document?: Maybe<{ __typename?: 'PrismicBlogCategory', id: string, prismicId: string, uid: string, data?: Maybe<{ __typename?: 'PrismicBlogCategoryDataType', name?: Maybe<string> }> } | { __typename?: 'PrismicBlogPost' }> }> }> }> };
+export type BlogPostQuery = { prismicBlogPost?: Maybe<{ __typename?: 'PrismicBlogPost', prismicId: string, uid: string, url?: Maybe<string>, type: string, id: string, lastUpdated: any, data?: Maybe<{ __typename?: 'PrismicBlogPostDataType', date?: Maybe<any>, title?: Maybe<{ __typename?: 'PrismicStructuredTextType', text?: Maybe<string> }>, featuredImage?: Maybe<{ __typename?: 'PrismicBlogPostDataFeaturedImageImageType', gatsbyImageData?: Maybe<any> }>, content?: Maybe<{ __typename?: 'PrismicStructuredTextType', html?: Maybe<string> }>, category?: Maybe<{ __typename?: 'PrismicLinkType', document?: Maybe<{ __typename?: 'PrismicBlogCategory', id: string, prismicId: string, uid: string, data?: Maybe<{ __typename?: 'PrismicBlogCategoryDataType', name?: Maybe<string> }> } | { __typename?: 'PrismicBlogPost' }> }> }> }> };
 
 
 
@@ -5414,6 +5433,8 @@ export type ResolversTypes = {
   SiteGroupConnection: ResolverTypeWrapper<SiteGroupConnection>;
   SitePage: ResolverTypeWrapper<SitePage>;
   SitePageConnection: ResolverTypeWrapper<SitePageConnection>;
+  SitePageContext: ResolverTypeWrapper<SitePageContext>;
+  SitePageContextFilterInput: SitePageContextFilterInput;
   SitePageEdge: ResolverTypeWrapper<SitePageEdge>;
   SitePageFieldsEnum: SitePageFieldsEnum;
   SitePageFilterInput: SitePageFilterInput;
@@ -5619,6 +5640,8 @@ export type ResolversParentTypes = {
   SiteGroupConnection: SiteGroupConnection;
   SitePage: SitePage;
   SitePageConnection: SitePageConnection;
+  SitePageContext: SitePageContext;
+  SitePageContextFilterInput: SitePageContextFilterInput;
   SitePageEdge: SitePageEdge;
   SitePageFilterInput: SitePageFilterInput;
   SitePageGroupConnection: SitePageGroupConnection;
@@ -6530,6 +6553,7 @@ export type SitePageResolvers<ContextType = any, ParentType extends ResolversPar
   children?: Resolver<Array<ResolversTypes['Node']>, ParentType, ContextType>;
   internal?: Resolver<ResolversTypes['Internal'], ParentType, ContextType>;
   isCreatedByStatefulCreatePages?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  context?: Resolver<Maybe<ResolversTypes['SitePageContext']>, ParentType, ContextType>;
   pluginCreator?: Resolver<Maybe<ResolversTypes['SitePlugin']>, ParentType, ContextType>;
   pluginCreatorId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -6545,6 +6569,13 @@ export type SitePageConnectionResolvers<ContextType = any, ParentType extends Re
   min?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<SitePageConnectionMinArgs, 'field'>>;
   sum?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<SitePageConnectionSumArgs, 'field'>>;
   group?: Resolver<Array<ResolversTypes['SitePageGroupConnection']>, ParentType, ContextType, RequireFields<SitePageConnectionGroupArgs, 'field'>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SitePageContextResolvers<ContextType = any, ParentType extends ResolversParentTypes['SitePageContext'] = ResolversParentTypes['SitePageContext']> = {
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  prismicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -6902,6 +6933,7 @@ export type Resolvers<ContextType = any> = {
   SiteGroupConnection?: SiteGroupConnectionResolvers<ContextType>;
   SitePage?: SitePageResolvers<ContextType>;
   SitePageConnection?: SitePageConnectionResolvers<ContextType>;
+  SitePageContext?: SitePageContextResolvers<ContextType>;
   SitePageEdge?: SitePageEdgeResolvers<ContextType>;
   SitePageGroupConnection?: SitePageGroupConnectionResolvers<ContextType>;
   SitePlugin?: SitePluginResolvers<ContextType>;

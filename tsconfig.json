@@ -15,8 +15,7 @@
       "jsx": "preserve",
       "baseUrl": "./src",
       "rootDir": "./",
-      "downlevelIteration": true,
-      "jsxImportSource": "@emotion/react"
+      "downlevelIteration": true
     },
     "include": ["**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
